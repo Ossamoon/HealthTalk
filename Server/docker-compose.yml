@@ -2,13 +2,11 @@ version: '3'
 
 services: 
   api:
-    build:
-      context: .
-      dockerfile: ./api/Dockerfile
+    build: .
     ports: 
       - '8080:8080'
     volumes: 
-      - './api:/go/src/api'
+      - '.:/go/src'
     tty: true
     stdin_open: true
   db:
@@ -16,4 +14,5 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: myrootpass
+      MYSQL_DATABASE: mysql
