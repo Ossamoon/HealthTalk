@@ -1,6 +1,6 @@
 FROM golang:1.15-alpine
 
-WORKDIR /go/src
+WORKDIR /go/src/github.com/Ossamoon/HealthTalk/Server
 COPY . .
 
 RUN apk update && \

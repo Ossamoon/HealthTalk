@@ -6,7 +6,7 @@ services:
     ports: 
       - '8080:8080'
     volumes: 
-      - '.:/go/src'
+      - '.:/go/src/github.com/Ossamoon/HealthTalk/Server'
     tty: true
     stdin_open: true
   db:

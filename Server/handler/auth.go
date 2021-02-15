@@ -7,6 +7,7 @@ import (
     "github.com/dgrijalva/jwt-go"
     "github.com/labstack/echo"
     "github.com/labstack/echo/middleware"
+	"github.com/Ossamoon/HealthTalk/Server/model"
 )
 
 type jwtCustomClaims struct {
