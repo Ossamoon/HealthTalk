@@ -23,6 +23,10 @@ var Config = middleware.JWTConfig{
     SigningKey: signingKey,
 }
 
+func Test(c echo.Context) error {
+    return c.JSON(http.StatusOK, map[string]string{"message": "hello!!"})
+}
+
 func Signup(c echo.Context) error {
     user := new(model.User)
     if err := c.Bind(user); err != nil {
