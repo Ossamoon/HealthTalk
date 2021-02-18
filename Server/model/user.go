@@ -7,11 +7,11 @@ type User struct {
 }
 
 func CreateUser(user *User) {
-    db.Create(user)
+	db.Create(user)
 }
 
 func FindUser(u *User) User {
-    var user User
+	var user User
     db.Where(u).First(&user)
     return user
 }

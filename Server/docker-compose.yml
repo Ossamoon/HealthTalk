@@ -3,16 +3,38 @@ version: '3'
 services: 
   api:
     build: .
+    container_name: api
     ports: 
       - '8080:8080'
     volumes: 
       - '.:/go/src/github.com/Ossamoon/HealthTalk/Server'
     tty: true
     stdin_open: true
+    entrypoint:
+      # mysqlが立ち上がるまで待つ
+      - dockerize
+      - -wait
+      - tcp://db:3306
+      - -timeout
+      - 30s
+    command: ["go", "run", "main.go", "router.go"]
+    environment: 
+      MYSQL_HOST: db
+      MYSQL_USER: mydockercompose
+      MYSQL_PASSWORD: mydockerpassword
+      MYSQL_DATABASE: go_api_mysql
+  
   db:
     image: mysql:5.7
+    container_name: db
     ports:
       - "3306:3306"
+    # volumes:
+    #   - ./db/mysql_init:/docker-entrypoint-initdb.d
+    #   - ./db/mysql_data:/var/lib/mysql
     environment:
+      MYSQL_USER: mydockercompose
+      MYSQL_PASSWORD: mydockerpassword
       MYSQL_ROOT_PASSWORD: myrootpass
-      MYSQL_DATABASE: mysql
+      MYSQL_DATABASE: go_api_mysql
+      TZ: 'Asia/Tokyo'
