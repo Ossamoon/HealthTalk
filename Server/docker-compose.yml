@@ -16,7 +16,7 @@ services:
       - -wait
       - tcp://db:3306
       - -timeout
-      - 30s
+      - 60s
     command: ["go", "run", "main.go", "router.go"]
     environment: 
       MYSQL_HOST: db
@@ -29,9 +29,9 @@ services:
     container_name: db
     ports:
       - "3306:3306"
-    # volumes:
-    #   - ./db/mysql_init:/docker-entrypoint-initdb.d
-    #   - ./db/mysql_data:/var/lib/mysql
+    volumes:
+      - ./db/mysql_init:/docker-entrypoint-initdb.d
+      - ./db/mysql_data:/var/lib/mysql
     environment:
       MYSQL_USER: mydockercompose
       MYSQL_PASSWORD: mydockerpassword
