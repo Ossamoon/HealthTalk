@@ -7,6 +7,7 @@ import (
     "github.com/dgrijalva/jwt-go"
     "github.com/labstack/echo"
     "github.com/labstack/echo/middleware"
+	"github.com/Ossamoon/HealthTalk/Server/model"
 )
 
 type jwtCustomClaims struct {
@@ -20,6 +21,10 @@ var signingKey = []byte("secretKey")
 var Config = middleware.JWTConfig{
     Claims:     &jwtCustomClaims{},
     SigningKey: signingKey,
+}
+
+func Test(c echo.Context) error {
+    return c.JSON(http.StatusOK, map[string]string{"message": "hello!!"})
 }
 
 func Signup(c echo.Context) error {
