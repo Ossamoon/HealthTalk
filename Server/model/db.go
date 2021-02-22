@@ -3,7 +3,7 @@ package model
 import (
     "fmt"
     "os"
-    
+
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -25,4 +25,5 @@ func init() {
         panic("failed to connect database")
     }
     db.AutoMigrate(&User{})
+    db.AutoMigrate(&Talk{})
 }

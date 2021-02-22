@@ -1,6 +1,8 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 type Talk struct {
 	ID        int    `json:"id" gorm:"praimaly_key"`
@@ -11,3 +13,13 @@ type Talk struct {
 }
 
 type Talks []Talk
+
+func CreateTalk(talk *Talk) {
+    db.Create(talk)
+}
+
+func FindTalks(t *Talk) Talks {
+    var talks Talks
+    db.Where(t).Find(&talks)
+    return talks
+}

@@ -16,4 +16,4 @@ CREATE TABLE talks (
 );
 
 INSERT INTO users (id, name, password) VALUES (1, 'sampleman', 'samplepass'), (2, 'testman', 'testpass');
-INSERT INTO talks (uid_from, uid_to, content) VALUES (1, 2, 'hello!!'), (2, 1, 'goodmorning!');
+INSERT INTO talks (id, uid_from, uid_to, content) VALUES (1, 1, 2, 'hello!!'), (2, 2, 1, 'goodmorning!');

@@ -1,0 +1,19 @@
+## mysqlコンテナ内にroot権限で入ってデータベース一覧、テーブル一覧、各テーブルの中身を表示
+$ docker-compose exec db bash
+mysql -u root -p
+myrootpass
+mysql> show databases;
+mysql> use go_api_mysql;
+mysql> show tables;
+mysql> select * from users;
+mysql> select * from talks;
+
+## curlコマンドでAPIの挙動をテスト
+$ curl -X POST -H "Content-Type: application/json" -d '{"name":"taro","password":"pass1"}' localhost:8080/signup
+$ curl -X POST -H "Content-Type: application/json" -d '{"name":"jiro","password":"pass2"}' localhost:8080/signup
+$ curl -X POST -H "Content-Type: application/json" -d '{"name":"taro","password":"pass1"}' localhost:8080/login
+$ curl -X POST -H "Content-Type: application/json" -d '{"name":"jiro","password":"pass2"}' localhost:8080/login
+$ curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (taro's_token)" -d '{"uid_to":4,"content":"やあ"}' localhost:8080/api/talks
+$ curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (taro's_token)" -d '{"uid_to":4,"content":"元気かい"}' localhost:8080/api/talks
+$ curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (jiro's_token)" -d '{"uid_to":3,"content":"元気だよ"}' localhost:8080/api/talks
+$ curl -X GET -H "Authorization: Bearer (jiro's_token)" localhost:8080/api/talks

@@ -16,5 +16,10 @@ func newRouter() *echo.Echo {
     e.POST("/signup", handler.Signup) // POST /signup
     e.POST("/login", handler.Login) // POST /login
 
+    api := e.Group("/api")
+    api.Use(middleware.JWTWithConfig(handler.Config)) // /apiより下はJWTの認証が必要
+    api.GET("/talks", handler.GetTalks) // GET /api/talks
+    api.POST("/talks", handler.AddTalk) // POST /api/talks
+
     return e
 }
