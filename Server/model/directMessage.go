@@ -1,15 +1,14 @@
 package model
 
 import (
-	"time"
+	"gorm.io/gorm"
 )
 
 type DirectMessage struct {
-	ID        int    `json:"id" gorm:"praimaly_key"`
-    FromUID   int    `json:"uid_from"`
-	ToUID     int    `json:"uid_to"`
+    gorm.Model
+	FromUID   uint   `json:"from_uid"`
+	ToUID     uint   `json:"to_uid"`
     Content   string `json:"content"`
-	CreatedAt time.Time
 }
 
 type DirectMessages []DirectMessage

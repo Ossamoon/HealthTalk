@@ -4,6 +4,7 @@ import (
     "net/http"
 
     "github.com/labstack/echo"
+    "gorm.io/gorm"
     "github.com/Ossamoon/HealthTalk/Server/model"
 )
 
@@ -21,12 +22,12 @@ func AddDirectMessage(c echo.Context) error {
     }
 
     fromUID := userIDFromToken(c)
-    if fromUser := model.FindUser(&model.User{ID: fromUID}); fromUser.ID == 0 {
+    if fromUser := model.FindUser(&model.User{Model: gorm.Model{ID: fromUID}}); fromUser.ID == 0 {
         return echo.ErrNotFound
     }
 
 	toUID := directMessage.ToUID
-    if toUser := model.FindUser(&model.User{ID: toUID}); toUser.ID == 0 {
+    if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUID}}); toUser.ID == 0 {
         return echo.ErrNotFound
     }
 
@@ -38,7 +39,7 @@ func AddDirectMessage(c echo.Context) error {
 
 func GetDirectMessages(c echo.Context) error {
     fromUID := userIDFromToken(c)
-    if fromUser := model.FindUser(&model.User{ID: fromUID}); fromUser.ID == 0 {
+    if fromUser := model.FindUser(&model.User{Model: gorm.Model{ID: fromUID}}); fromUser.ID == 0 {
         return echo.ErrNotFound
     }
 

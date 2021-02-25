@@ -11,7 +11,7 @@ import (
 )
 
 type jwtCustomClaims struct {
-    UID  int    `json:"uid"`
+    UID  uint   `json:"uid"`
     Name string `json:"name"`
     jwt.StandardClaims
 }
@@ -21,10 +21,6 @@ var signingKey = []byte("secretKey")
 var Config = middleware.JWTConfig{
     Claims:     &jwtCustomClaims{},
     SigningKey: signingKey,
-}
-
-func Test(c echo.Context) error {
-    return c.JSON(http.StatusOK, map[string]string{"message": "hello!!"})
 }
 
 func Signup(c echo.Context) error {
@@ -68,7 +64,7 @@ func Login(c echo.Context) error {
     }
 
     claims := &jwtCustomClaims{
-        user.ID,
+        user.Model.ID,
         user.Name,
         jwt.StandardClaims{
             ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
@@ -86,7 +82,7 @@ func Login(c echo.Context) error {
     })
 }
 
-func userIDFromToken(c echo.Context) int {
+func userIDFromToken(c echo.Context) uint {
     user := c.Get("user").(*jwt.Token)
     claims := user.Claims.(*jwtCustomClaims)
     uid := claims.UID

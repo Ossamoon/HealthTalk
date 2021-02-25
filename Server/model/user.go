@@ -1,14 +1,15 @@
 package model
 
 import (
-    "time"
+    "gorm.io/gorm"
 )
 
 type User struct {
-    ID        int    `json:"id" gorm:"primaly_key"`
-    Name      string `json:"name"`
-    Password  string `json:"password"`
-    CreatedAt time.Time
+    gorm.Model
+    Name      string    `json:"name"`
+    Password  string    `json:"password"`
+    Email     string    `json:"email"`
+    Friends   []*User   `gorm:"many2many:user_friends;"`
 }
 
 func CreateUser(user *User) {
