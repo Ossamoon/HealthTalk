@@ -6,7 +6,7 @@ mysql> show databases;
 mysql> use go_api_mysql;
 mysql> show tables;
 mysql> select * from users;
-mysql> select * from talks;
+mysql> select * from direct_messages;
 
 ## curlコマンドでAPIの挙動をテスト
 $ curl -X POST -H "Content-Type: application/json" -d '{"name":"taro","password":"pass1"}' localhost:8080/signup

@@ -15,7 +15,7 @@ func init() {
     pass := os.Getenv("MYSQL_PASSWORD")
     host := os.Getenv("MYSQL_HOST")
     dbname := os.Getenv("MYSQL_DATABASE")
-    connection := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local", user, pass, host, dbname)
+    connection := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", user, pass, host, dbname)
 
     var err error
     db, err = gorm.Open("mysql", connection)
@@ -25,5 +25,5 @@ func init() {
         panic("failed to connect database")
     }
     db.AutoMigrate(&User{})
-    db.AutoMigrate(&Talk{})
+    db.AutoMigrate(&DirectMessage{})
 }
