@@ -6,10 +6,12 @@ import (
 
 type User struct {
     gorm.Model
-    Name      string    `json:"name"`
-    Password  string    `json:"password"`
-    Email     string    `json:"email"`
-    Friends   []*User   `gorm:"many2many:user_friends;"`
+    Name                string    `json:"name" gorm:"not null"`
+    Password            string    `json:"password" gorm:"not null"`
+    Email               string    `json:"email" gorm:"not null"`
+    Friends             []*User   `gorm:"many2many:user_friends;"`
+    ManagingGroups      []*Group  `gorm:"many2many:manager_groups;"`
+    PerticipatingGroups []*Group  `gorm:"many2many:member_groups;"`
 }
 
 func CreateUser(user *User) {
