@@ -18,6 +18,7 @@ func newRouter() *echo.Echo {
 
     api := e.Group("/api")
     api.Use(middleware.JWTWithConfig(handler.Config)) // /apiより下はJWTの認証が必要
+    api.GET("/user", handler.GetUser) // GET /api/user
     api.GET("/directmessage", handler.GetDirectMessages) // GET /api/directmessage
     api.POST("/directmessage", handler.AddDirectMessage) // POST /api/directmessage
 

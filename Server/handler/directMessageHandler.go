@@ -21,28 +21,28 @@ func AddDirectMessage(c echo.Context) error {
         }
     }
 
-    fromUID := userIDFromToken(c)
-    if fromUser := model.FindUser(&model.User{Model: gorm.Model{ID: fromUID}}); fromUser.ID == 0 {
+    fromUserID := userIDFromToken(c)
+    if fromUser := model.FindUser(&model.User{Model: gorm.Model{ID: fromUserID}}); fromUser.ID == 0 {
         return echo.ErrNotFound
     }
 
-	toUID := directMessage.ToUID
-    if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUID}}); toUser.ID == 0 {
+	toUserID := directMessage.ToUserID
+    if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound
     }
 
-    directMessage.FromUID = fromUID
+    directMessage.FromUserID = fromUserID
     model.CreateDirectMessage(directMessage)
 
     return c.JSON(http.StatusCreated, directMessage)
 }
 
 func GetDirectMessages(c echo.Context) error {
-    fromUID := userIDFromToken(c)
-    if fromUser := model.FindUser(&model.User{Model: gorm.Model{ID: fromUID}}); fromUser.ID == 0 {
+    fromUserID := userIDFromToken(c)
+    if fromUser := model.FindUser(&model.User{Model: gorm.Model{ID: fromUserID}}); fromUser.ID == 0 {
         return echo.ErrNotFound
     }
 
-    directMessages := model.FindDirectMessages(&model.DirectMessage{FromUID: fromUID})
+    directMessages := model.FindDirectMessages(&model.DirectMessage{FromUserID: fromUserID})
     return c.JSON(http.StatusOK, directMessages)
 }
