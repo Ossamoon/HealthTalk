@@ -73,4 +73,18 @@ func CreateSampleDataSet() {
     db.Create(&nobiGroup)
     db.Create(&akichiGroup)
     db.Create(&giantsGroup)
+
+    // Create sample direct messages
+    dm1 := DirectMessage{FromUserID:nobi.Model.ID, ToUserID:dora.Model.ID, Content: "おやつ食べれるよ"}
+    dm2 := DirectMessage{FromUserID:dora.Model.ID, ToUserID:nobi.Model.ID, Content: "分かったー"}
+    dm3 := DirectMessage{FromUserID:nobi.Model.ID, ToUserID:dora.Model.ID, Content: "今日はどら焼きみたい"}
+    dm4 := DirectMessage{FromUserID:dora.Model.ID, ToUserID:nobi.Model.ID, Content: "やった！！"}
+    dm5 := DirectMessage{FromUserID:gian.Model.ID, ToUserID:nobi.Model.ID, Content: "おいのび太、野球するぞ"}
+    dm6 := DirectMessage{FromUserID:gian.Model.ID, ToUserID:nobi.Model.ID, Content: "遅れたらぶん殴るからな"}
+    db.Create(&dm1)
+    db.Create(&dm2)
+    db.Create(&dm3)
+    db.Create(&dm4)
+    db.Create(&dm5)
+    db.Create(&dm6)
 }

@@ -11,14 +11,12 @@ type DirectMessage struct {
     Content    string `json:"content" gorm:"not null"`
 }
 
-type DirectMessages []DirectMessage
-
 func CreateDirectMessage(directMessage *DirectMessage) {
     db.Create(directMessage)
 }
 
-func FindDirectMessages(dm *DirectMessage) DirectMessages {
-    var directMessages DirectMessages
+func FindDirectMessages(dm *DirectMessage) []DirectMessage {
+    var directMessages []DirectMessage
     db.Where(dm).Find(&directMessages)
     return directMessages
 }

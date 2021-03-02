@@ -2,6 +2,7 @@ package handler
 
 import (
     "net/http"
+    "strconv"
 
     "github.com/labstack/echo"
     "gorm.io/gorm"
@@ -26,12 +27,14 @@ func AddDirectMessage(c echo.Context) error {
         return echo.ErrNotFound
     }
 
-	toUserID := directMessage.ToUserID
+	tempUint64, _ := strconv.ParseUint(c.Param("with"), 10, 64)
+    toUserID := uint(tempUint64)
     if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound
     }
 
     directMessage.FromUserID = fromUserID
+    directMessage.ToUserID = toUserID
     model.CreateDirectMessage(directMessage)
 
     return c.JSON(http.StatusCreated, directMessage)
@@ -43,6 +46,13 @@ func GetDirectMessages(c echo.Context) error {
         return echo.ErrNotFound
     }
 
-    directMessages := model.FindDirectMessages(&model.DirectMessage{FromUserID: fromUserID})
+    tempUint64, _ := strconv.ParseUint(c.Param("with"), 10, 64)
+    toUserID := uint(tempUint64)
+    if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
+        return echo.ErrNotFound
+    }
+
+    directMessages := model.FindDirectMessages(&model.DirectMessage{FromUserID: fromUserID, ToUserID: toUserID})
+    directMessages = append(directMessages, model.FindDirectMessages(&model.DirectMessage{FromUserID: toUserID, ToUserID: fromUserID})...)
     return c.JSON(http.StatusOK, directMessages)
 }

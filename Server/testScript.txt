@@ -9,3 +9,4 @@ mysql> select * from direct_messages;
 ## curlコマンドでAPIの挙動をテスト
 $ curl -X POST -H "Content-Type: application/json" -d '{"name":"ドラえもん","password":"dorayaki"}' localhost:8080/login
 $ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/user
+$ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/directmessage/2
