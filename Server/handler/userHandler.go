@@ -9,24 +9,17 @@ import (
 )
 
 func GetUser(c echo.Context) error {
-    userID := userIDFromToken(c)
-	user := model.FindUser(&model.User{Model: gorm.Model{ID: userID}})
+	userID := userIDFromToken(c)
+	user := model.FindUserWithPreload(&model.User{Model: gorm.Model{ID: userID}})
     if user.ID == 0 {
         return echo.ErrNotFound
     }
 
-    return c.JSON(http.StatusOK, user)
+    user.Password = ""
+    for _, friend := range user.Friends {
+        friend.Password = ""
+        friend.Email = ""
+    }
+
+	return c.JSON(http.StatusOK, user)
 }
-
-// func GetFriends(c echo.Context) error {
-// 	userID := userIDFromToken(c)
-// 	user := model.FindUser(&model.User{Model: gorm.Model{ID: userID}})
-//     if user.ID == 0 {
-//         return echo.ErrNotFound
-//     }
-
-// 	friends := []User
-// 	db.Model(&user).Association("Friends").Find(&friends)
-
-// 	return c.JSON(http.StatusOK, friends)
-// }

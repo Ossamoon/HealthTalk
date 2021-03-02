@@ -23,3 +23,9 @@ func FindUser(u *User) User {
     db.Where(u).First(&user)
     return user
 }
+
+func FindUserWithPreload(u *User) User {
+	var user User
+    db.Preload("Friends").Preload("ManagingGroups").Preload("PerticipatingGroups").Where(u).First(&user)
+    return user
+}
