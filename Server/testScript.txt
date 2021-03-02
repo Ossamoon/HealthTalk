@@ -7,6 +7,15 @@ mysql> select * from users;
 mysql> select * from direct_messages;
 
 ## curlコマンドでAPIの挙動をテスト
-$ curl -X POST -H "Content-Type: application/json" -d '{"name":"ドラえもん","password":"dorayaki"}' localhost:8080/login
-$ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/user
-$ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/directmessage/2
+### ログイン
+curl -X POST -H "Content-Type: application/json" -d '{"name":"ドラえもん","password":"dorayaki"}' localhost:8080/login
+### ユーザー情報取得
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/user
+### ダイレクトメッセージ送信
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"今すぐに行く！！"}' localhost:8080/api/directmessage/2
+### ダイレクトメッセージ受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/directmessage/2
+### グループメッセージ送信
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"また今度だね"}' localhost:8080/api/groupmessage/1
+### グループメッセージ受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/groupmessage/1

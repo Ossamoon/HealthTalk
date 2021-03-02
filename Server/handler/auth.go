@@ -29,17 +29,17 @@ func Signup(c echo.Context) error {
         return err
     }
 
-    if user.Name == "" || user.Password == "" {
+    if user.Name == "" || user.Password == "" || user.Email == "" {
         return &echo.HTTPError{
             Code:    http.StatusBadRequest,
-            Message: "invalid name or password",
+            Message: "invalid name or password or email",
         }
     }
 
-    if u := model.FindUser(&model.User{Name: user.Name}); u.ID != 0 {
+    if u := model.FindUser(&model.User{Email: user.Email}); u.ID != 0 {
         return &echo.HTTPError{
             Code:    http.StatusConflict,
-            Message: "name already exists",
+            Message: "email already exists",
         }
     }
 

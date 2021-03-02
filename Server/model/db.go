@@ -75,16 +75,26 @@ func CreateSampleDataSet() {
     db.Create(&giantsGroup)
 
     // Create sample direct messages
-    dm1 := DirectMessage{FromUserID:nobi.Model.ID, ToUserID:dora.Model.ID, Content: "おやつ食べれるよ"}
-    dm2 := DirectMessage{FromUserID:dora.Model.ID, ToUserID:nobi.Model.ID, Content: "分かったー"}
-    dm3 := DirectMessage{FromUserID:nobi.Model.ID, ToUserID:dora.Model.ID, Content: "今日はどら焼きみたい"}
-    dm4 := DirectMessage{FromUserID:dora.Model.ID, ToUserID:nobi.Model.ID, Content: "やった！！"}
-    dm5 := DirectMessage{FromUserID:gian.Model.ID, ToUserID:nobi.Model.ID, Content: "おいのび太、野球するぞ"}
-    dm6 := DirectMessage{FromUserID:gian.Model.ID, ToUserID:nobi.Model.ID, Content: "遅れたらぶん殴るからな"}
+    dm1 := DirectMessage{FromUserID: nobi.Model.ID, ToUserID: dora.Model.ID, Content: "おやつ食べれるよ"}
+    dm2 := DirectMessage{FromUserID: dora.Model.ID, ToUserID: nobi.Model.ID, Content: "分かったー"}
+    dm3 := DirectMessage{FromUserID: nobi.Model.ID, ToUserID: dora.Model.ID, Content: "今日はどら焼きみたい"}
+    dm4 := DirectMessage{FromUserID: dora.Model.ID, ToUserID: nobi.Model.ID, Content: "やった！！"}
+    dm5 := DirectMessage{FromUserID: gian.Model.ID, ToUserID: nobi.Model.ID, Content: "おいのび太、野球するぞ"}
+    dm6 := DirectMessage{FromUserID: gian.Model.ID, ToUserID: nobi.Model.ID, Content: "遅れたらぶん殴るからな"}
     db.Create(&dm1)
     db.Create(&dm2)
     db.Create(&dm3)
     db.Create(&dm4)
     db.Create(&dm5)
     db.Create(&dm6)
+
+    // Create sample group messages
+    gm1 := GroupMessage{FromUserID: papa.Model.ID, ToGroupID: nobiGroup.Model.ID, Content: "今月はボーナスだぞ！"}
+    gm2 := GroupMessage{FromUserID: nobi.Model.ID, ToGroupID: nobiGroup.Model.ID, Content: "やった！ゲーム買って！"}
+    gm3 := GroupMessage{FromUserID: mama.Model.ID, ToGroupID: nobiGroup.Model.ID, Content: "今回は貯金です。"}
+    gm4 := GroupMessage{FromUserID: dora.Model.ID, ToGroupID: nobiGroup.Model.ID, Content: "残念だったね、のび太くん"}
+    db.Create(&gm1)
+    db.Create(&gm2)
+    db.Create(&gm3)
+    db.Create(&gm4)
 }

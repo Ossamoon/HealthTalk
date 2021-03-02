@@ -3,6 +3,7 @@ package handler
 import (
     "net/http"
     "strconv"
+    "sort"
 
     "github.com/labstack/echo"
     "gorm.io/gorm"
@@ -54,5 +55,9 @@ func GetDirectMessages(c echo.Context) error {
 
     directMessages := model.FindDirectMessages(&model.DirectMessage{FromUserID: fromUserID, ToUserID: toUserID})
     directMessages = append(directMessages, model.FindDirectMessages(&model.DirectMessage{FromUserID: toUserID, ToUserID: fromUserID})...)
+    sort.Slice(directMessages, func(i, j int) bool {
+        return directMessages[i].Model.ID < directMessages[j].Model.ID
+    })
+
     return c.JSON(http.StatusOK, directMessages)
 }
