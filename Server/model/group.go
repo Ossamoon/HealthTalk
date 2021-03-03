@@ -6,7 +6,7 @@ import (
 
 type Group struct {
     gorm.Model
-    Name      string    `json:"name" gorm:"not null"`
+    Name      string    `json:"name" gorm:"size:50;not null;"`
 	Managers  []*User   `gorm:"many2many:manager_groups;"`
 	Members   []*User   `gorm:"many2many:member_groups;"`
 }

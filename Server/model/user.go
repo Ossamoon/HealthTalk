@@ -6,9 +6,9 @@ import (
 
 type User struct {
     gorm.Model
-    Name                string    `json:"name" gorm:"not null"`
-    Password            string    `json:"password" gorm:"not null"`
-    Email               string    `json:"email" gorm:"not null"`
+    Name                string    `json:"name" gorm:"index;size:50;not null;"`
+    Password            string    `json:"password" gorm:"size:50;not null;"`
+    Email               string    `json:"email" gorm:"uniqueIndex;size:100;not null;"`
     Friends             []*User   `gorm:"many2many:user_friends;"`
     ManagingGroups      []*Group  `gorm:"many2many:manager_groups;"`
     PerticipatingGroups []*Group  `gorm:"many2many:member_groups;"`

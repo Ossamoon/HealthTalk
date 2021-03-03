@@ -6,8 +6,8 @@ import (
 
 type GroupMessage struct {
     gorm.Model
-	FromUserID  uint   `json:"from_user_id" gorm:"not null"`
-	ToGroupID   uint   `json:"to_group_id" gorm:"not null"`
+	FromUserID  uint   `json:"from_user_id" gorm:"not null;"`
+	ToGroupID   uint   `json:"to_group_id" gorm:"index;not null;"`
     Content     string `json:"content" gorm:"not null"`
 }
 

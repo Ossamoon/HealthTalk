@@ -6,8 +6,8 @@ import (
 
 type DirectMessage struct {
     gorm.Model
-	FromUserID uint   `json:"from_user_id" gorm:"not null"`
-	ToUserID   uint   `json:"to_user_id" gorm:"not null"`
+	FromUserID uint   `json:"from_user_id" gorm:"index;not null;"`
+	ToUserID   uint   `json:"to_user_id" gorm:"index;not null;"`
     Content    string `json:"content" gorm:"not null"`
 }
 
