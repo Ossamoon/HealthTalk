@@ -30,11 +30,11 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./db/mysql_init:/docker-entrypoint-initdb.d
-      - ./db/mysql_data:/var/lib/mysql
+      # - ./db/mysql_init:/docker-entrypoint-initdb.d
+      # - ./db/mysql_data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       MYSQL_USER: mydockercompose
       MYSQL_PASSWORD: mydockerpassword
       MYSQL_ROOT_PASSWORD: myrootpass
       MYSQL_DATABASE: go_api_mysql
-      TZ: 'Asia/Tokyo'

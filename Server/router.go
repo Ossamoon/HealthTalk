@@ -16,5 +16,16 @@ func newRouter() *echo.Echo {
     e.POST("/signup", handler.Signup) // POST /signup
     e.POST("/login", handler.Login) // POST /login
 
+    api := e.Group("/api")
+    api.Use(middleware.JWTWithConfig(handler.Config)) // /apiより下はJWTの認証が必要
+    api.GET("/user", handler.GetUser) // GET /api/user
+    api.GET("/group/:group_id", handler.GetGroup) // GET /api/group/:group_id
+    api.GET("/directmessage/:with", handler.GetDirectMessages) // GET /api/directmessage/:with
+    api.POST("/directmessage/:with", handler.AddDirectMessage) // POST /api/directmessage/:with
+    api.GET("/groupmessage/:group_id", handler.GetGroupMessages) // GET /api/groupmessage/:group_id
+    api.POST("/groupmessage/:group_id", handler.AddGroupMessage) // POST /api/groupmessage/:group_id
+    api.GET("/healthrecord", handler.GetHealthRecords) // GET /api/healthrecord
+    api.POST("/healthrecord", handler.AddHealthRecord) // POST /api/healthrecord
+
     return e
 }

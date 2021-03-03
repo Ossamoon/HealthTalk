@@ -1,0 +1,26 @@
+## mysqlコンテナ内にroot権限で入ってデータベース一覧、テーブル一覧、各テーブルの中身を表示
+$ docker-compose exec db bash
+mysql -u root -p
+myrootpass
+mysql> use go_api_mysql; show tables; 
+mysql> select * from users;
+
+## curlコマンドでAPIの挙動をテスト
+### ログイン
+curl -X POST -H "Content-Type: application/json" -d '{"name":"ドラえもん","password":"dorayaki"}' localhost:8080/login
+### ユーザー情報取得
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/user
+### グループ情報取得
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/group/1
+### ダイレクトメッセージ送信
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"今すぐに行く！！"}' localhost:8080/api/directmessage/2
+### ダイレクトメッセージ受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/directmessage/2
+### グループメッセージ送信
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"また今度だね"}' localhost:8080/api/groupmessage/1
+### グループメッセージ受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/groupmessage/1
+### ヘルスレコード送信
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"date":"2021-03-05T00:00:00Z","body_temperature":35.4}' localhost:8080/api/healthrecord
+### ヘルスレコード受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/healthrecord

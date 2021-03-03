@@ -7,5 +7,13 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 );
 
-INSERT INTO users VALUES (1, 'sampleman', 'samplepass');
-INSERT INTO users VALUES (2, 'testman', 'testpass');
+CREATE TABLE talks (
+    id INT NOT NULL AUTO_INCREMENT,
+    uid_from INT NOT NULL,
+    uid_to INT NOT NULL,
+    content VARCHAR(1024) NOT NULL, 
+    PRIMARY KEY (id)
+);
+
+INSERT INTO users (id, name, password) VALUES (1, 'sampleman', 'samplepass'), (2, 'testman', 'testpass');
+INSERT INTO talks (id, uid_from, uid_to, content) VALUES (1, 1, 2, 'hello!!'), (2, 2, 1, 'goodmorning!');
