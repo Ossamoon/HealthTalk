@@ -20,3 +20,9 @@ func FindGroup(g *Group) Group {
     db.Where(g).First(&group)
     return group
 }
+
+func FindGroupWithPreload(g *Group) Group {
+	var group Group
+    db.Preload("Managers").Preload("Members").Where(g).First(&group)
+    return group
+}
