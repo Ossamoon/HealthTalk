@@ -18,3 +18,7 @@ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/directmessage/
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"また今度だね"}' localhost:8080/api/groupmessage/1
 ### グループメッセージ受信
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/groupmessage/1
+### ヘルスレコード送信
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"date":"2021-03-05T00:00:00Z","body_temperature":35.4}' localhost:8080/api/healthrecord
+### ヘルスレコード受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/healthrecord

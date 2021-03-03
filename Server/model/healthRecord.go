@@ -8,8 +8,8 @@ import (
 
 type HealthRecord struct {
 	gorm.Model
-	UserID				uint		`json:"user_id" gorm:"not null"`
-	Date				time.Time	`json:"date" gorm:"not null;type:date;"`
+	UserID				uint		`json:"user_id" gorm:"index;not null;"`
+	Date				time.Time	`json:"date" gorm:"index;not null;type:date;"`
 	BodyTemperature		float32		`json:"body_temperature"`
 	BloodPressureMax	int			`json:"blood_pressure_max"`
 	BloodPressureMin	int			`json:"blood_pressure_min"`
