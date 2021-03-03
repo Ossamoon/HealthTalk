@@ -3,6 +3,7 @@ package model
 import (
     "fmt"
     "os"
+    "time"
 
     "gorm.io/gorm"
     "gorm.io/driver/mysql"
@@ -25,7 +26,7 @@ func init() {
         panic("failed to connect database")
     }
 
-    db.AutoMigrate(&User{}, &Group{}, &DirectMessage{}, &GroupMessage{})
+    db.AutoMigrate(&User{}, &Group{}, &DirectMessage{}, &GroupMessage{}, &HealthRecord{})
 
     CreateSampleDataSet()
 }
@@ -97,4 +98,16 @@ func CreateSampleDataSet() {
     db.Create(&gm2)
     db.Create(&gm3)
     db.Create(&gm4)
+
+    // Create sample health records
+    date1 := time.Date(2021, time.March, 3, 0, 0, 0, 0, time.UTC)
+    date2 := time.Date(2021, time.March, 4, 0, 0, 0, 0, time.UTC)
+    health1 := &HealthRecord{UserID: dora.Model.ID, Date: date1, BodyTemperature: 35.5}
+    health2 := &HealthRecord{UserID: dora.Model.ID, Date: date2, BodyTemperature: 35.8, Memo: "どら焼き美味しかった"}
+    health3 := &HealthRecord{UserID: nobi.Model.ID, Date: date1, BodyTemperature: 36.5, HeartRate: 86, CoughOrSoreThroat: 0, Headache: 0, Stomachache: 0, FeelTired: 0}
+    health4 := &HealthRecord{UserID: nobi.Model.ID, Date: date2, BodyTemperature: 36.4, HeartRate: 84, CoughOrSoreThroat: 0, Headache: 0.15, Stomachache: 0, FeelTired: 0.45, Memo: "野球で疲れた"}
+    db.Create(health1)
+    db.Create(health2)
+    db.Create(health3)
+    db.Create(health4)
 }

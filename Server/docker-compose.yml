@@ -38,4 +38,3 @@ services:
       MYSQL_PASSWORD: mydockerpassword
       MYSQL_ROOT_PASSWORD: myrootpass
       MYSQL_DATABASE: go_api_mysql
-      TZ: 'Asia/Tokyo'

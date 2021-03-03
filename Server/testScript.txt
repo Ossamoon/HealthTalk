@@ -4,7 +4,6 @@ mysql -u root -p
 myrootpass
 mysql> use go_api_mysql; show tables; 
 mysql> select * from users;
-mysql> select * from direct_messages;
 
 ## curlコマンドでAPIの挙動をテスト
 ### ログイン
