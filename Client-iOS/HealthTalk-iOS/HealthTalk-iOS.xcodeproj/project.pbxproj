@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B72CAA025F37FC30066DC2F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CA9F25F37FC30066DC2F /* SignInView.swift */; };
+		0B72CAA325F3806B0066DC2F /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CAA225F3806B0066DC2F /* SignView.swift */; };
+		0B72CAA625F380F30066DC2F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CAA525F380F30066DC2F /* HomeView.swift */; };
+		0B72CAAC25F3828C0066DC2F /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CAAB25F3828C0066DC2F /* RootView.swift */; };
+		0B72CAAF25F3856E0066DC2F /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CAAE25F3856E0066DC2F /* Common.swift */; };
+		0BA4058925EBA9E800A463B9 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4058825EBA9E800A463B9 /* SignUpView.swift */; };
 		B12186F225D8967C00C11A79 /* HealthTalk_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12186F125D8967C00C11A79 /* HealthTalk_iOSApp.swift */; };
 		B12186F425D8967C00C11A79 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12186F325D8967C00C11A79 /* ContentView.swift */; };
 		B12186F625D8967E00C11A79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B12186F525D8967E00C11A79 /* Assets.xcassets */; };
@@ -14,6 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B72CA9F25F37FC30066DC2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		0B72CAA225F3806B0066DC2F /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
+		0B72CAA525F380F30066DC2F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		0B72CAAB25F3828C0066DC2F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		0B72CAAE25F3856E0066DC2F /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		0BA4058825EBA9E800A463B9 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		B12186EE25D8967C00C11A79 /* HealthTalk-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HealthTalk-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B12186F125D8967C00C11A79 /* HealthTalk_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTalk_iOSApp.swift; sourceTree = "<group>"; };
 		B12186F325D8967C00C11A79 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +66,12 @@
 			children = (
 				B12186F125D8967C00C11A79 /* HealthTalk_iOSApp.swift */,
 				B12186F325D8967C00C11A79 /* ContentView.swift */,
+				0B72CAAB25F3828C0066DC2F /* RootView.swift */,
+				0B72CAA525F380F30066DC2F /* HomeView.swift */,
+				0BA4058825EBA9E800A463B9 /* SignUpView.swift */,
+				0B72CA9F25F37FC30066DC2F /* SignInView.swift */,
+				0B72CAAE25F3856E0066DC2F /* Common.swift */,
+				0B72CAA225F3806B0066DC2F /* SignView.swift */,
 				B12186F525D8967E00C11A79 /* Assets.xcassets */,
 				B12186FA25D8967E00C11A79 /* Info.plist */,
 				B12186F725D8967E00C11A79 /* Preview Content */,
@@ -138,8 +156,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B72CAAC25F3828C0066DC2F /* RootView.swift in Sources */,
 				B12186F425D8967C00C11A79 /* ContentView.swift in Sources */,
+				0B72CAA325F3806B0066DC2F /* SignView.swift in Sources */,
+				0BA4058925EBA9E800A463B9 /* SignUpView.swift in Sources */,
+				0B72CAA625F380F30066DC2F /* HomeView.swift in Sources */,
+				0B72CAA025F37FC30066DC2F /* SignInView.swift in Sources */,
 				B12186F225D8967C00C11A79 /* HealthTalk_iOSApp.swift in Sources */,
+				0B72CAAF25F3856E0066DC2F /* Common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
