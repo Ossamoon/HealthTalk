@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct SignInView: View {
-    @State var inputName: String = ""
-    @State var inputPassword: String = ""
+    @ObservedObject var viewModel = SignInViewModel()
     
     var body: some View {
         VStack {
@@ -19,19 +18,16 @@ struct SignInView: View {
                 .padding()
             
             VStack {
-                TextField("ユーザー名", text: $inputName)
+                TextField("ユーザー名", text: $viewModel.inputName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                SecureField("パスワード", text: $inputPassword)
+                SecureField("パスワード", text: $viewModel.inputPassword)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
             }.padding()
             
             Button(action: {
-                print("SignIn処理")
-                UserDefaults.standard.set("token", forKey: "apiToken")
-                let auth = Auth.shared
-                auth.token = "token"
+                viewModel.run()
             }) {
                 Text("ログイン")
                     .font(.title2)
