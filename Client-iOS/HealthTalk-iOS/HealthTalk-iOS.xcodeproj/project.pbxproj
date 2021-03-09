@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B5A71B725F540E4009412F2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A71B625F540E4009412F2 /* HomeViewModel.swift */; };
 		0B72CAA025F37FC30066DC2F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CA9F25F37FC30066DC2F /* SignInView.swift */; };
 		0B72CAA325F3806B0066DC2F /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CAA225F3806B0066DC2F /* SignView.swift */; };
 		0B72CAA625F380F30066DC2F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72CAA525F380F30066DC2F /* HomeView.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B5A71B625F540E4009412F2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0B72CA9F25F37FC30066DC2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		0B72CAA225F3806B0066DC2F /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
 		0B72CAA525F380F30066DC2F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -49,39 +51,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B72CAB325F3A9890066DC2F /* AuthView */ = {
+		0B5A71B125F54094009412F2 /* ContentViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0B5A71B625F540E4009412F2 /* HomeViewModel.swift */,
+			);
+			path = ContentViewModels;
+			sourceTree = "<group>";
+		};
+		0B72CAB325F3A9890066DC2F /* AuthViews */ = {
 			isa = PBXGroup;
 			children = (
 				0B72CA9F25F37FC30066DC2F /* SignInView.swift */,
 				0B72CAA225F3806B0066DC2F /* SignView.swift */,
 				0BA4058825EBA9E800A463B9 /* SignUpView.swift */,
 			);
-			path = AuthView;
+			path = AuthViews;
 			sourceTree = "<group>";
 		};
-		0B72CAB425F3A9DD0066DC2F /* ContentView */ = {
+		0B72CAB425F3A9DD0066DC2F /* ContentViews */ = {
 			isa = PBXGroup;
 			children = (
 				0B72CAA525F380F30066DC2F /* HomeView.swift */,
 				B12186F325D8967C00C11A79 /* ContentView.swift */,
 			);
-			path = ContentView;
+			path = ContentViews;
 			sourceTree = "<group>";
 		};
-		0B72CABB25F3B9220066DC2F /* Model */ = {
+		0B72CABB25F3B9220066DC2F /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				0B72CABE25F3C0560066DC2F /* Token.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		0B72CACA25F4FAF30066DC2F /* AuthViewModel */ = {
+		0B72CACA25F4FAF30066DC2F /* AuthViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				0B72CACB25F4FB150066DC2F /* SignInViewModel.swift */,
 			);
-			path = AuthViewModel;
+			path = AuthViewModels;
 			sourceTree = "<group>";
 		};
 		B12186E525D8967C00C11A79 = {
@@ -105,10 +115,11 @@
 			children = (
 				B12186F125D8967C00C11A79 /* HealthTalk_iOSApp.swift */,
 				0B72CAAB25F3828C0066DC2F /* RootView.swift */,
-				0B72CABB25F3B9220066DC2F /* Model */,
-				0B72CACA25F4FAF30066DC2F /* AuthViewModel */,
-				0B72CAB325F3A9890066DC2F /* AuthView */,
-				0B72CAB425F3A9DD0066DC2F /* ContentView */,
+				0B72CABB25F3B9220066DC2F /* Models */,
+				0B72CACA25F4FAF30066DC2F /* AuthViewModels */,
+				0B72CAB325F3A9890066DC2F /* AuthViews */,
+				0B5A71B125F54094009412F2 /* ContentViewModels */,
+				0B72CAB425F3A9DD0066DC2F /* ContentViews */,
 				0B72CAAE25F3856E0066DC2F /* Auth.swift */,
 				B12186F525D8967E00C11A79 /* Assets.xcassets */,
 				B12186FA25D8967E00C11A79 /* Info.plist */,
@@ -201,6 +212,7 @@
 				0B72CACC25F4FB150066DC2F /* SignInViewModel.swift in Sources */,
 				0B72CAA625F380F30066DC2F /* HomeView.swift in Sources */,
 				0B72CABF25F3C0560066DC2F /* Token.swift in Sources */,
+				0B5A71B725F540E4009412F2 /* HomeViewModel.swift in Sources */,
 				0B72CAA025F37FC30066DC2F /* SignInView.swift in Sources */,
 				B12186F225D8967C00C11A79 /* HealthTalk_iOSApp.swift in Sources */,
 				0B72CAAF25F3856E0066DC2F /* Auth.swift in Sources */,
