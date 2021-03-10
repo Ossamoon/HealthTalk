@@ -24,3 +24,15 @@ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/groupmessage/1
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"date":"2021-03-05T00:00:00Z","body_temperature":35.4}' localhost:8080/api/healthrecord
 ### ヘルスレコード受信
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/healthrecord
+
+
+
+## 面談メモ 2021.03.09
+* 2種類のトークン
+    - access token
+    - refresh token
+* API
+    - ログイン(id, password) => { accessToken1, refreshToken1 }
+    - トークン更新(refreshToken1) => { accessToken2, refreshToken2 }
+    - マイページ取得(accessToken2) => マイページレスポンス
+    - メッセージ送信(accessToken2, メッセージ) => メッセージ送信レスポンス

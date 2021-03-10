@@ -25,7 +25,7 @@ services:
       MYSQL_DATABASE: go_api_mysql
   
   db:
-    image: mysql:5.7
+    image: mariadb:10.5
     container_name: db
     ports:
       - "3306:3306"

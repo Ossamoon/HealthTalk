@@ -23,6 +23,26 @@ var Config = middleware.JWTConfig{
     SigningKey: signingKey,
 }
 
+type SignUpResponse struct {
+    Name                string    `json:"name" gorm:"index;size:50;not null;"`
+    Email               string    `json:"email" gorm:"uniqueIndex;size:100;not null;"`
+    Friends             []*UserRespose   `gorm:"many2many:user_friends;"`
+    ManagingGroups      []*GroupRespose  `gorm:"many2many:manager_groups;"`
+    PerticipatingGroups []*GroupRespose  `gorm:"many2many:member_groups;"`
+}
+
+type UserRespose struct {
+    ID                  uint      
+    Name                string    `json:"name" gorm:"index;size:50;not null;"`
+    Email               string    `json:"email" gorm:"uniqueIndex;size:100;not null;"`
+}
+
+type GroupRespose struct {
+    ID                  uint      
+    Name      string    `json:"name" gorm:"size:50;not null;"`
+}
+
+
 func Signup(c echo.Context) error {
     user := new(model.User)
     if err := c.Bind(user); err != nil {
@@ -44,9 +64,11 @@ func Signup(c echo.Context) error {
     }
 
     model.CreateUser(user)
-    user.Password = ""
+    responce := UserRespose{
+        ID: user.Model.ID,
+    }
 
-    return c.JSON(http.StatusCreated, user)
+    return c.JSON(http.StatusCreated, responce)
 }
 
 func Login(c echo.Context) error {
