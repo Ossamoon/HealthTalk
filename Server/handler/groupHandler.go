@@ -1,5 +1,6 @@
 package handler
 
+
 import (
     "net/http"
 	"strconv"
@@ -9,10 +10,21 @@ import (
     "github.com/Ossamoon/HealthTalk/Server/model"
 )
 
-type GroupSummary struct {
-    ID          uint        `json:"group_id"`
-    Name        string      `json:"name"`
-}
+
+type (
+    GroupResponce struct {
+        gorm.Model
+        Name        string          `json:"name"`
+        Managers    []UserSummary   `json:"manages"`
+        Members     []UserSummary   `json:"members"`
+    }
+
+    GroupSummary struct {
+        ID          uint
+        Name        string      `json:"name"`
+    }
+)
+
 
 func GetGroup(c echo.Context) error {
 	tempUint64, _ := strconv.ParseUint(c.Param("group_id"), 10, 64)
@@ -22,15 +34,30 @@ func GetGroup(c echo.Context) error {
         return echo.ErrNotFound
     }
 
+    var managers []UserSummary
     for _, manager := range group.Managers {
-        manager.Password = ""
-        manager.Email = ""
+        adding := UserSummary {
+            ID: manager.Model.ID,
+            Name: manager.Name,
+        }
+        managers = append(managers, adding)
+    }
+    
+    var members []UserSummary
+    for _, member := range group.Members {
+        adding := UserSummary {
+            ID: member.Model.ID,
+            Name: member.Name,
+        }
+        members = append(members, adding)
     }
 
-	for _, member := range group.Members {
-        member.Password = ""
-        member.Email = ""
+    responce := GroupResponce {
+        Model: group.Model,
+        Name: group.Name,
+        Managers: managers,
+        Members: members,
     }
 
-	return c.JSON(http.StatusOK, group)
+	return c.JSON(http.StatusOK, responce)
 }

@@ -20,8 +20,8 @@ type (
     }
 
     SignUpResponse struct {
-        ID          uint        `json:"user_id"`
-        CreatedAt   time.Time   `json:"created_at"`
+        ID          uint
+        CreatedAt   time.Time
         Name        string      `json:"name"`
     }
 

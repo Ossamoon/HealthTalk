@@ -2,8 +2,8 @@ package handler
 
 
 import (
+    "fmt"
     "net/http"
-    "time"
 
     "github.com/labstack/echo"
     "gorm.io/gorm"
@@ -13,10 +13,7 @@ import (
 
 type (
     UserRespose struct {
-        ID                  uint            `json:"user_id"`    
-        CreatedAt           time.Time       `json:"created_at"`
-        UpdatedAt           time.Time       `json:"updated_at"`
-        DeletedAt           gorm.DeletedAt  `json:"deleted_at"`
+        gorm.Model
         Name                string          `json:"name"`
         Friends             []UserSummary   `json:"friends"`
         ManagingGroups      []GroupSummary  `json:"managing_groups"`
@@ -24,7 +21,7 @@ type (
     }
 
     UserSummary struct {
-        ID          uint        `json:"user_id"`
+        ID          uint 
         Name        string      `json:"name"`
     }
 )
@@ -46,13 +43,32 @@ func GetUser(c echo.Context) error {
         friends = append(friends, adding)
     }
 
+    var managingGroups []GroupSummary
+    fmt.Println(user.ManagingGroups)
+    for _, group := range user.ManagingGroups {
+        adding := GroupSummary {
+            ID: group.Model.ID,
+            Name: group.Name,
+        }
+        managingGroups = append(managingGroups, adding)
+    }
+
+    var perticipatingGroups []GroupSummary
+    fmt.Println(user.PerticipatingGroups)
+    for _, group := range user.PerticipatingGroups {
+        adding := GroupSummary {
+            ID: group.Model.ID,
+            Name: group.Name,
+        }
+        perticipatingGroups = append(perticipatingGroups, adding)
+    }
+
     responce := UserRespose {
-        ID: user.Model.ID,
-        CreatedAt: user.Model.CreatedAt,
-        UpdatedAt: user.Model.UpdatedAt,
-        DeletedAt: user.Model.DeletedAt,
+        Model: user.Model,
         Name: user.Name,
         Friends: friends,
+        ManagingGroups: managingGroups,
+        PerticipatingGroups: perticipatingGroups,
     }
 
 	return c.JSON(http.StatusOK, responce)
