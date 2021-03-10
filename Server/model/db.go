@@ -1,5 +1,6 @@
 package model
 
+
 import (
     "fmt"
     "os"
@@ -9,7 +10,9 @@ import (
     "gorm.io/driver/mysql"
 )
 
+
 var db *gorm.DB
+
 
 func init() {
     user := os.Getenv("MYSQL_USER")
@@ -30,6 +33,7 @@ func init() {
 
     CreateSampleDataSet()
 }
+
 
 func CreateSampleDataSet() {
     // Create sample users

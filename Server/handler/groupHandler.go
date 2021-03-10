@@ -9,6 +9,11 @@ import (
     "github.com/Ossamoon/HealthTalk/Server/model"
 )
 
+type GroupSummary struct {
+    ID          uint        `json:"group_id"`
+    Name        string      `json:"name"`
+}
+
 func GetGroup(c echo.Context) error {
 	tempUint64, _ := strconv.ParseUint(c.Param("group_id"), 10, 64)
     groupID := uint(tempUint64)

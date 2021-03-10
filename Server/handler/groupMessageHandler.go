@@ -1,5 +1,6 @@
 package handler
 
+
 import (
     "net/http"
     "strconv"
@@ -8,6 +9,7 @@ import (
     "gorm.io/gorm"
     "github.com/Ossamoon/HealthTalk/Server/model"
 )
+
 
 func AddGroupMessage(c echo.Context) error {
     groupMessage := new(model.GroupMessage)
@@ -39,6 +41,7 @@ func AddGroupMessage(c echo.Context) error {
 
     return c.JSON(http.StatusCreated, groupMessage)
 }
+
 
 func GetGroupMessages(c echo.Context) error {
     tempUint64, _ := strconv.ParseUint(c.Param("group_id"), 10, 64)

@@ -1,5 +1,6 @@
 package handler
 
+
 import (
     "net/http"
     "strconv"
@@ -9,6 +10,7 @@ import (
     "gorm.io/gorm"
     "github.com/Ossamoon/HealthTalk/Server/model"
 )
+
 
 func AddDirectMessage(c echo.Context) error {
     directMessage := new(model.DirectMessage)
@@ -40,6 +42,7 @@ func AddDirectMessage(c echo.Context) error {
 
     return c.JSON(http.StatusCreated, directMessage)
 }
+
 
 func GetDirectMessages(c echo.Context) error {
     fromUserID := userIDFromToken(c)

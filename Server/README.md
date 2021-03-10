@@ -20,7 +20,8 @@
                 "CreatedAt":
                 "2021-03-09T09:36:55.762Z",
                 "UpdatedAt":"2021-03-09T09:36:55.795Z",
-                "DeletedAt":null,"name":"野比のび太",
+                "DeletedAt":null,
+                "name":"野比のび太",
                 "password":"",
                 "email":"",
                 "Friends":null,

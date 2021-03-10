@@ -1,8 +1,10 @@
 package model
 
+
 import (
     "gorm.io/gorm"
 )
+
 
 type Group struct {
     gorm.Model
@@ -11,15 +13,18 @@ type Group struct {
 	Members   []*User   `gorm:"many2many:member_groups;"`
 }
 
+
 func CreateGroup(group *Group) {
 	db.Create(group)
 }
+
 
 func FindGroup(g *Group) Group {
 	var group Group
     db.Where(g).First(&group)
     return group
 }
+
 
 func FindGroupWithPreload(g *Group) Group {
 	var group Group

@@ -1,10 +1,12 @@
 package model
 
+
 import (
 	"time"
 
 	"gorm.io/gorm"
 )
+
 
 type HealthRecord struct {
 	gorm.Model
@@ -21,9 +23,11 @@ type HealthRecord struct {
 	Memo				string		`json:"memo"`
 }
 
+
 func CreateHealthRecord(healthRecord *HealthRecord) {
     db.Create(healthRecord)
 }
+
 
 func FindHealthRecords(record *HealthRecord) []HealthRecord {
     var healthRecords []HealthRecord
