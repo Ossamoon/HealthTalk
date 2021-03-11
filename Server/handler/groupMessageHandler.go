@@ -39,7 +39,12 @@ func AddGroupMessage(c echo.Context) error {
     groupMessage.ToGroupID = toGroupID
     model.CreateGroupMessage(groupMessage)
 
-    return c.JSON(http.StatusCreated, groupMessage)
+    responce := CommonCreateResponce {
+        ID: groupMessage.Model.ID,
+        CreatedAt: groupMessage.Model.CreatedAt,
+    }
+
+    return c.JSON(http.StatusCreated, responce)
 }
 
 

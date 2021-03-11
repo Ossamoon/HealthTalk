@@ -40,7 +40,12 @@ func AddDirectMessage(c echo.Context) error {
     directMessage.ToUserID = toUserID
     model.CreateDirectMessage(directMessage)
 
-    return c.JSON(http.StatusCreated, directMessage)
+    responce := CommonCreateResponce {
+        ID: directMessage.Model.ID,
+        CreatedAt: directMessage.Model.CreatedAt,
+    }
+
+    return c.JSON(http.StatusCreated, responce)
 }
 
 

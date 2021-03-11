@@ -24,7 +24,12 @@ func AddHealthRecord(c echo.Context) error {
     healthRecord.UserID = userID
     model.CreateHealthRecord(healthRecord)
 
-    return c.JSON(http.StatusCreated, healthRecord)
+    responce := CommonCreateResponce {
+        ID: healthRecord.Model.ID,
+        CreatedAt: healthRecord.Model.CreatedAt,
+    }
+
+    return c.JSON(http.StatusCreated, responce)
 }
 
 
