@@ -12,6 +12,8 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"ドラえもん","
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/user
 ### グループ情報取得
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/group/1
+### グループ作成
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"name":"どら焼き愛好会"}' localhost:8080/api/group
 ### ダイレクトメッセージ送信
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"今すぐに行く！！"}' localhost:8080/api/directmessage/2
 ### ダイレクトメッセージ受信

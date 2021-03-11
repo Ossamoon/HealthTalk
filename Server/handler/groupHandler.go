@@ -26,6 +26,30 @@ type (
 )
 
 
+func AddGroup(c echo.Context) error {
+    group := new(model.Group)
+    if err := c.Bind(group); err != nil {
+        return err
+    }
+
+    managerID := userIDFromToken(c)
+    manager := model.FindUser(&model.User{Model: gorm.Model{ID: managerID}})
+    if manager.ID == 0 {
+        return echo.ErrNotFound
+    }
+
+    group.Managers = []*model.User{&manager}
+    model.CreateGroup(group)
+
+    responce := CommonCreateResponce {
+        ID: group.Model.ID,
+        CreatedAt: group.Model.CreatedAt,
+    }
+
+    return c.JSON(http.StatusCreated, responce)
+}
+
+
 func GetGroup(c echo.Context) error {
 	tempUint64, _ := strconv.ParseUint(c.Param("group_id"), 10, 64)
     groupID := uint(tempUint64)
