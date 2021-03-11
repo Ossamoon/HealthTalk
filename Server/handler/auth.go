@@ -23,6 +23,7 @@ type (
         ID          uint
         CreatedAt   time.Time
         Name        string      `json:"name"`
+        Email       string      `json:"email"`
     }
 
     LoginResponse struct {
@@ -65,6 +66,7 @@ func Signup(c echo.Context) error {
         ID: user.Model.ID,
         CreatedAt: user.Model.CreatedAt,
         Name: user.Name,
+        Email: user.Email,
     }
 
     return c.JSON(http.StatusCreated, responce)

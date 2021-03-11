@@ -10,6 +10,8 @@ mysql> select * from users;
 curl -X POST -H "Content-Type: application/json" -d '{"name":"ドラえもん","password":"dorayaki"}' localhost:8080/login
 ### ユーザー情報取得
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/user
+### ユーザー情報更新
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"name":"ドラえもん","email":"updated2dora@gmail.com"}' localhost:8080/api/user
 ### グループ情報取得
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/group/1
 ### グループ作成

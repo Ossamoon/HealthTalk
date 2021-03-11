@@ -2,6 +2,7 @@ package model
 
 
 import (
+    "fmt"
     "gorm.io/gorm"
 )
 
@@ -33,4 +34,16 @@ func FindUserWithPreload(u *User) User {
 	var user User
     db.Preload("Friends").Preload("ManagingGroups").Preload("PerticipatingGroups").Where(u).First(&user)
     return user
+}
+
+
+func UpdateUser(user *User, name string, email string) {
+    if name != "" {
+        db.Model(&user).Update("name", name)
+        fmt.Println("Updated name!!")
+    }
+    if email != "" {
+        db.Model(&user).Update("email", email)
+        fmt.Println("Updated email!!")
+    }
 }
