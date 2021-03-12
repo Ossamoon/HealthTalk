@@ -11,7 +11,6 @@ import (
     "github.com/Ossamoon/HealthTalk/Server/model"
 )
 
-
 func AddDirectMessage(c echo.Context) error {
     directMessage := new(model.DirectMessage)
     if err := c.Bind(directMessage); err != nil {
@@ -30,7 +29,7 @@ func AddDirectMessage(c echo.Context) error {
         return echo.ErrNotFound
     }
 
-	tempUint64, _ := strconv.ParseUint(c.Param("with"), 10, 64)
+	tempUint64, _ := strconv.ParseUint(c.Param("user_id"), 10, 64)
     toUserID := uint(tempUint64)
     if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound
@@ -55,7 +54,7 @@ func GetDirectMessages(c echo.Context) error {
         return echo.ErrNotFound
     }
 
-    tempUint64, _ := strconv.ParseUint(c.Param("with"), 10, 64)
+    tempUint64, _ := strconv.ParseUint(c.Param("user_id"), 10, 64)
     toUserID := uint(tempUint64)
     if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound
