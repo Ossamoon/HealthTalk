@@ -29,6 +29,7 @@ func newRouter() *echo.Echo {
     api.POST("/groupmessage/:group_id", handler.AddGroupMessage) // POST /api/groupmessage/:group_id
     api.GET("/healthrecord", handler.GetHealthRecords) // GET /api/healthrecord
     api.POST("/healthrecord", handler.AddHealthRecord) // POST /api/healthrecord
+    api.PUT("/healthrecord/:record_id", handler.UpdateHealthRecord) // PUT /api/healthrecord/:record_id
 
     return e
 }

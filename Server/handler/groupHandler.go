@@ -4,7 +4,6 @@ package handler
 import (
     "net/http"
 	"strconv"
-    "time"
 
     "github.com/labstack/echo"
     "gorm.io/gorm"
@@ -21,12 +20,6 @@ type (
     }
 
     UpdateGroupRequest struct {
-        Name        string      `json:"name"`
-    }
-
-    UpdateGroupResponse struct {
-        ID          uint
-        UpdatedAt   time.Time
         Name        string      `json:"name"`
     }
 
@@ -122,10 +115,9 @@ func UpdateGroup(c echo.Context) error {
 
     model.UpdateGroup(&group, updating.Name)
 
-    responce := UpdateGroupResponse {
+    responce := CommonUpdateResponce {
         ID: group.Model.ID,
         UpdatedAt: group.Model.UpdatedAt,
-        Name: group.Name,
     }
 
     return c.JSON(http.StatusOK, responce)

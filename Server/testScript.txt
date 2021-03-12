@@ -30,7 +30,8 @@ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/groupmessage/1
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"date":"2021-03-05T00:00:00Z","body_temperature":35.4}' localhost:8080/api/healthrecord
 ### ヘルスレコード受信
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/healthrecord
-
+### ヘルスレコード更新
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"memo": "やっぱここの記録なし！"}' localhost:8080/api/healthrecord/1
 
 
 ## 面談メモ 2021.03.09
