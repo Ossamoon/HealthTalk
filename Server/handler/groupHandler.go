@@ -4,6 +4,7 @@ package handler
 import (
     "net/http"
 	"strconv"
+    "time"
 
     "github.com/labstack/echo"
     "gorm.io/gorm"
@@ -17,6 +18,16 @@ type (
         Name        string          `json:"name"`
         Managers    []UserSummary   `json:"manages"`
         Members     []UserSummary   `json:"members"`
+    }
+
+    UpdateGroupRequest struct {
+        Name        string      `json:"name"`
+    }
+
+    UpdateGroupResponse struct {
+        ID          uint
+        UpdatedAt   time.Time
+        Name        string      `json:"name"`
     }
 
     GroupSummary struct {
@@ -58,6 +69,11 @@ func GetGroup(c echo.Context) error {
         return echo.ErrNotFound
     }
 
+    userID := userIDFromToken(c)
+	if user := model.FindUser(&model.User{Model: gorm.Model{ID: userID}}); user.ID == 0 {
+        return echo.ErrNotFound
+    }
+
     var managers []UserSummary
     for _, manager := range group.Managers {
         adding := UserSummary {
@@ -84,4 +100,33 @@ func GetGroup(c echo.Context) error {
     }
 
 	return c.JSON(http.StatusOK, responce)
+}
+
+func UpdateGroup(c echo.Context) error {
+    tempUint64, _ := strconv.ParseUint(c.Param("group_id"), 10, 64)
+    groupID := uint(tempUint64)
+	group := model.FindGroup(&model.Group{Model: gorm.Model{ID: groupID}})
+    if group.ID == 0 {
+        return echo.ErrNotFound
+    }
+
+    userID := userIDFromToken(c)
+	if user := model.FindUser(&model.User{Model: gorm.Model{ID: userID}}); user.ID == 0 {
+        return echo.ErrNotFound
+    }
+
+    updating := new(UpdateGroupRequest)
+    if err := c.Bind(updating); err != nil {
+        return err
+    }
+
+    model.UpdateGroup(&group, updating.Name)
+
+    responce := UpdateGroupResponse {
+        ID: group.Model.ID,
+        UpdatedAt: group.Model.UpdatedAt,
+        Name: group.Name,
+    }
+
+    return c.JSON(http.StatusOK, responce)
 }

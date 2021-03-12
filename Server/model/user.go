@@ -40,10 +40,10 @@ func FindUserWithPreload(u *User) User {
 func UpdateUser(user *User, name string, email string) {
     if name != "" {
         db.Model(&user).Update("name", name)
-        fmt.Println("Updated name!!")
+        fmt.Println("Updated User.Name!!")
     }
     if email != "" {
         db.Model(&user).Update("email", email)
-        fmt.Println("Updated email!!")
+        fmt.Println("Updated User.Email!!")
     }
 }

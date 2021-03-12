@@ -3,6 +3,7 @@ package model
 
 import (
     "gorm.io/gorm"
+    "fmt"
 )
 
 
@@ -30,4 +31,12 @@ func FindGroupWithPreload(g *Group) Group {
 	var group Group
     db.Preload("Managers").Preload("Members").Where(g).First(&group)
     return group
+}
+
+
+func UpdateGroup(group *Group, name string) {
+    if name != "" {
+        db.Model(&group).Update("name", name)
+        fmt.Println("Updated Group.Name!!")
+    }
 }
