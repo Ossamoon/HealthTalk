@@ -8,34 +8,42 @@ mysql> select * from users;
 ## curlコマンドでAPIの挙動をテスト
 ### ログイン
 curl -X POST -H "Content-Type: application/json" -d '{"name":"ドラえもん","password":"dorayaki"}' localhost:8080/login
+
 ### ユーザー情報取得
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/user
 ### ユーザー情報更新
 curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"name":"ドラえもん","email":"updated2dora@gmail.com"}' localhost:8080/api/user
-### グループ情報取得
-curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/group/1
+
 ### グループ作成
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"name":"どら焼き愛好会"}' localhost:8080/api/group
+### グループ情報取得
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/group/1
 ### グループ情報更新
 curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"name":"野比ファミリー"}' localhost:8080/api/group/1
+
 ### ダイレクトメッセージ送信
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"今すぐに行く！！"}' localhost:8080/api/directmessage/2
 ### ダイレクトメッセージ受信
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/directmessage/2
+
 ### グループメッセージ送信
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"content":"また今度だね"}' localhost:8080/api/groupmessage/1
 ### グループメッセージ受信
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/groupmessage/1
+
 ### ヘルスレコード送信
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"date":"2021-03-05T00:00:00Z","body_temperature":35.4}' localhost:8080/api/healthrecord
 ### ヘルスレコード受信
 curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/healthrecord
 ### ヘルスレコード更新
 curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"memo": "やっぱここの記録なし！"}' localhost:8080/api/healthrecord/1
-### フレンドリクエスト受信
-curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/invitation/friend
+
 ### フレンドリクエスト送信
 curl -X POST -H "Authorization: Bearer (token)" localhost:8080/api/invitation/friend/5
+### フレンドリクエスト受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/invitation/friend
+### フレンドリクエストを受諾/拒否/保留
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"status": "accepted"}' localhost:8080/api/invitation/friend/1
 
 
 ## 面談メモ 2021.03.09

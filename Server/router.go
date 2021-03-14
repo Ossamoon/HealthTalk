@@ -1,10 +1,12 @@
 package main
 
+
 import (
 	"github.com/labstack/echo"
     "github.com/labstack/echo/middleware"
 	"github.com/Ossamoon/HealthTalk/Server/handler"
 )
+
 
 func newRouter() *echo.Echo {
 	e := echo.New()
@@ -38,6 +40,7 @@ func newRouter() *echo.Echo {
 
     api.GET("/invitation/friend", handler.GetFriendInvitations) // GET /api/invitation/friend
     api.POST("/invitation/friend/:user_id", handler.AddFriendInvitation) // POST /api/invitation/friend/:user_id
+    api.PUT("/invitation/friend/:invitation_id", handler.UpdateFriendInvitationStatus) // PUT /api/invitation/friend/:invitation_id
     
 
     return e
