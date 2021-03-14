@@ -42,6 +42,10 @@ func newRouter() *echo.Echo {
     api.POST("/invitation/friend/:user_id", handler.AddFriendInvitation) // POST /api/invitation/friend/:user_id
     api.PUT("/invitation/friend/:invitation_id", handler.UpdateFriendInvitationStatus) // PUT /api/invitation/friend/:invitation_id
     
+    api.GET("/invitation/group", handler.GetGroupInvitations) // GET /api/invitation/group
+    api.POST("/invitation/group", handler.AddGroupInvitation) // POST /api/invitation/group
+    api.PUT("/invitation/group/:invitation_id", handler.UpdateGroupInvitationStatus) // PUT /api/invitation/group/:invitation_id
+    
 
     return e
 }

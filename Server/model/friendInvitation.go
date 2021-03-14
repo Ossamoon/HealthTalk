@@ -40,8 +40,6 @@ func FindFriendInvitation(inv *FriendInvitation) FriendInvitation {
 func FindFriendInvitations(inv *FriendInvitation) []FriendInvitation {
     var invitations []FriendInvitation
     db.Where(inv).Find(&invitations)
-	fmt.Println(*inv)
-	fmt.Println(invitations)
     return invitations
 }
 

@@ -45,6 +45,13 @@ curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/invitation/fri
 ### フレンドリクエストを受諾/拒否/保留
 curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"status": "accepted"}' localhost:8080/api/invitation/friend/1
 
+### グループリクエスト送信
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"from_group_id":1,"to_user_id":1}' localhost:8080/api/invitation/group
+### フレンドリクエスト受信
+curl -X GET -H "Authorization: Bearer (token)" localhost:8080/api/invitation/group
+### フレンドリクエストを受諾/拒否/保留
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer (token)" -d '{"status": "refused"}' localhost:8080/api/invitation/group/1
+
 
 ## 面談メモ 2021.03.09
 * 2種類のトークン

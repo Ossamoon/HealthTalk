@@ -12,30 +12,30 @@ import (
 
 
 type (
-    UpdateInvitationStatusRequest struct {
-        Status      string      `json:"status"`
-    }
+	GroupInvitationRequest struct {
+		FromGroupID			uint	`json:"from_group_id"`
+		ToUserID			uint	`json:"to_user_id"`
+	}
 )
 
 
-func AddFriendInvitation(c echo.Context) error {
-	fromUserID := userIDFromToken(c)
-    if fromUser := model.FindUser(&model.User{Model: gorm.Model{ID: fromUserID}}); fromUser.ID == 0 {
+func AddGroupInvitation(c echo.Context) error {
+	userID := userIDFromToken(c)
+    if user := model.FindUser(&model.User{Model: gorm.Model{ID: userID}}); user.ID == 0 {
         return echo.ErrNotFound
     }
 
-	tempUint64, _ := strconv.ParseUint(c.Param("user_id"), 10, 64)
-    toUserID := uint(tempUint64)
-    if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
-        return echo.ErrNotFound
+	request := new(GroupInvitationRequest)
+    if err := c.Bind(request); err != nil {
+        return err
     }
 
-	invitation := new(model.FriendInvitation)
-	invitation.FromUserID = fromUserID
-	invitation.ToUserID = toUserID
+	invitation := new(model.GroupInvitation)
+	invitation.FromGroupID = request.FromGroupID
+	invitation.ToUserID = request.ToUserID
 	invitation.Status = model.UNREAD
 
-	model.CreateFriendInvitation(invitation)
+	model.CreateGroupInvitation(invitation)
 
 	responce := CommonCreateResponce {
         ID: invitation.Model.ID,
@@ -46,19 +46,19 @@ func AddFriendInvitation(c echo.Context) error {
 }
 
 
-func GetFriendInvitations(c echo.Context) error {
+func GetGroupInvitations(c echo.Context) error {
 	toUserID := userIDFromToken(c)
     if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound
     }
 
-	friendInvitations := model.FindFriendInvitations(&model.FriendInvitation{ToUserID: toUserID, Status: model.UNREAD})
+	groupInvitations := model.FindGroupInvitations(&model.GroupInvitation{ToUserID: toUserID, Status: model.UNREAD})
 
-	return c.JSON(http.StatusOK, friendInvitations)
+	return c.JSON(http.StatusOK, groupInvitations)
 }
 
 
-func UpdateFriendInvitationStatus(c echo.Context) error {
+func UpdateGroupInvitationStatus(c echo.Context) error {
     toUserID := userIDFromToken(c)
     if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound
@@ -66,7 +66,7 @@ func UpdateFriendInvitationStatus(c echo.Context) error {
 
     tempUint64, _ := strconv.ParseUint(c.Param("invitation_id"), 10, 64)
     invitationID := uint(tempUint64)
-    invitation := model.FindFriendInvitation(&model.FriendInvitation{Model: gorm.Model{ID: invitationID}})
+    invitation := model.FindGroupInvitation(&model.GroupInvitation{Model: gorm.Model{ID: invitationID}})
     if invitation.ID == 0 {
         return echo.ErrNotFound
     }
@@ -103,7 +103,7 @@ func UpdateFriendInvitationStatus(c echo.Context) error {
             }
     }
 
-    model.UpdateFriendInvitation(&invitation, status)
+    model.UpdateGroupInvitation(&invitation, status)
 
     responce := CommonUpdateResponce {
         ID: invitation.Model.ID,

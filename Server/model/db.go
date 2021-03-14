@@ -29,7 +29,7 @@ func init() {
         panic("failed to connect database")
     }
 
-    db.AutoMigrate(&User{}, &Group{}, &DirectMessage{}, &GroupMessage{}, &HealthRecord{}, &FriendInvitation{})
+    db.AutoMigrate(&User{}, &Group{}, &DirectMessage{}, &GroupMessage{}, &HealthRecord{}, &FriendInvitation{},&GroupInvitation{})
 
     CreateSampleDataSet()
 }
@@ -124,4 +124,8 @@ func CreateSampleDataSet() {
     friendInvitation2 := &FriendInvitation{FromUserID: sune.Model.ID, ToUserID: dora.Model.ID, Status: UNREAD}
     db.Create(friendInvitation1)
     db.Create(friendInvitation2)
+
+    // Create sample group invitations
+    groupInvitation1 := &GroupInvitation{FromGroupID: giantsGroup.Model.ID, ToUserID: dora.Model.ID, Status: UNREAD}
+    db.Create(groupInvitation1)
 }
