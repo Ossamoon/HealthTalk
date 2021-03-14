@@ -1,5 +1,6 @@
 package handler
 
+
 import (
     "net/http"
     "strconv"
@@ -28,7 +29,7 @@ func AddDirectMessage(c echo.Context) error {
         return echo.ErrNotFound
     }
 
-	tempUint64, _ := strconv.ParseUint(c.Param("with"), 10, 64)
+	tempUint64, _ := strconv.ParseUint(c.Param("user_id"), 10, 64)
     toUserID := uint(tempUint64)
     if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound
@@ -38,8 +39,14 @@ func AddDirectMessage(c echo.Context) error {
     directMessage.ToUserID = toUserID
     model.CreateDirectMessage(directMessage)
 
-    return c.JSON(http.StatusCreated, directMessage)
+    responce := CommonCreateResponce {
+        ID: directMessage.Model.ID,
+        CreatedAt: directMessage.Model.CreatedAt,
+    }
+
+    return c.JSON(http.StatusCreated, responce)
 }
+
 
 func GetDirectMessages(c echo.Context) error {
     fromUserID := userIDFromToken(c)
@@ -47,7 +54,7 @@ func GetDirectMessages(c echo.Context) error {
         return echo.ErrNotFound
     }
 
-    tempUint64, _ := strconv.ParseUint(c.Param("with"), 10, 64)
+    tempUint64, _ := strconv.ParseUint(c.Param("user_id"), 10, 64)
     toUserID := uint(tempUint64)
     if toUser := model.FindUser(&model.User{Model: gorm.Model{ID: toUserID}}); toUser.ID == 0 {
         return echo.ErrNotFound

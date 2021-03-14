@@ -1,5 +1,6 @@
 package handler
 
+
 import (
     "net/http"
     "time"
@@ -10,18 +11,35 @@ import (
 	"github.com/Ossamoon/HealthTalk/Server/model"
 )
 
-type jwtCustomClaims struct {
-    UID  uint   `json:"uid"`
-    Name string `json:"name"`
-    jwt.StandardClaims
-}
 
-var signingKey = []byte("secretKey")
+type (
+    jwtCustomClaims struct {
+        UID  uint   `json:"uid"`
+        Name string `json:"name"`
+        jwt.StandardClaims
+    }
 
-var Config = middleware.JWTConfig{
-    Claims:     &jwtCustomClaims{},
-    SigningKey: signingKey,
-}
+    SignUpResponse struct {
+        ID          uint
+        CreatedAt   time.Time
+        Name        string      `json:"name"`
+        Email       string      `json:"email"`
+    }
+
+    LoginResponse struct {
+        Token       string      `json:"token"`
+    }
+)
+
+var (
+    signingKey = []byte("secretKey")
+
+    Config = middleware.JWTConfig{
+        Claims:     &jwtCustomClaims{},
+        SigningKey: signingKey,
+    }
+)
+
 
 func Signup(c echo.Context) error {
     user := new(model.User)
@@ -44,10 +62,16 @@ func Signup(c echo.Context) error {
     }
 
     model.CreateUser(user)
-    user.Password = ""
+    responce := SignUpResponse {
+        ID: user.Model.ID,
+        CreatedAt: user.Model.CreatedAt,
+        Name: user.Name,
+        Email: user.Email,
+    }
 
-    return c.JSON(http.StatusCreated, user)
+    return c.JSON(http.StatusCreated, responce)
 }
+
 
 func Login(c echo.Context) error {
     u := new(model.User)
@@ -77,10 +101,13 @@ func Login(c echo.Context) error {
         return err
     }
 
-    return c.JSON(http.StatusOK, map[string]string{
-        "token": t,
-    })
+    responce := LoginResponse {
+        Token: t,
+    }
+
+    return c.JSON(http.StatusOK, responce)
 }
+
 
 func userIDFromToken(c echo.Context) uint {
     user := c.Get("user").(*jwt.Token)

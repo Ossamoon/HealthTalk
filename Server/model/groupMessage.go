@@ -1,8 +1,10 @@
 package model
 
+
 import (
 	"gorm.io/gorm"
 )
+
 
 type GroupMessage struct {
     gorm.Model
@@ -11,9 +13,11 @@ type GroupMessage struct {
     Content     string `json:"content" gorm:"not null"`
 }
 
+
 func CreateGroupMessage(groupMessage *GroupMessage) {
     db.Create(groupMessage)
 }
+
 
 func FindGroupMessages(gm *GroupMessage) []GroupMessage {
     var groupMessages []GroupMessage

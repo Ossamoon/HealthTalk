@@ -1,8 +1,11 @@
 package model
 
+
 import (
+    "fmt"
     "gorm.io/gorm"
 )
+
 
 type User struct {
     gorm.Model
@@ -14,9 +17,11 @@ type User struct {
     PerticipatingGroups []*Group  `gorm:"many2many:member_groups;"`
 }
 
+
 func CreateUser(user *User) {
 	db.Create(user)
 }
+
 
 func FindUser(u *User) User {
 	var user User
@@ -24,8 +29,21 @@ func FindUser(u *User) User {
     return user
 }
 
+
 func FindUserWithPreload(u *User) User {
 	var user User
     db.Preload("Friends").Preload("ManagingGroups").Preload("PerticipatingGroups").Where(u).First(&user)
     return user
+}
+
+
+func UpdateUser(user *User, name string, email string) {
+    if name != "" {
+        db.Model(&user).Update("name", name)
+        fmt.Println("Updated User.Name!!")
+    }
+    if email != "" {
+        db.Model(&user).Update("email", email)
+        fmt.Println("Updated User.Email!!")
+    }
 }

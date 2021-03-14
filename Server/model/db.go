@@ -1,5 +1,6 @@
 package model
 
+
 import (
     "fmt"
     "os"
@@ -9,7 +10,9 @@ import (
     "gorm.io/driver/mysql"
 )
 
+
 var db *gorm.DB
+
 
 func init() {
     user := os.Getenv("MYSQL_USER")
@@ -26,10 +29,11 @@ func init() {
         panic("failed to connect database")
     }
 
-    db.AutoMigrate(&User{}, &Group{}, &DirectMessage{}, &GroupMessage{}, &HealthRecord{})
+    db.AutoMigrate(&User{}, &Group{}, &DirectMessage{}, &GroupMessage{}, &HealthRecord{}, &FriendInvitation{},&GroupInvitation{})
 
     CreateSampleDataSet()
 }
+
 
 func CreateSampleDataSet() {
     // Create sample users
@@ -58,22 +62,26 @@ func CreateSampleDataSet() {
     // Create sample groups
     nobiGroup := Group{
         Name: "野比家",
-        Managers: []*User{&papa, &mama},
-        Members: []*User{&nobi, &dora},
     }
     akichiGroup := Group{
         Name: "空き地に集まる会",
-        Managers: []*User{&sune, &sizu},
-        Members: []*User{&gian, &nobi, &dora},
     }
     giantsGroup := Group{
         Name: "野球ジャイアンズ",
-        Managers: []*User{&gian},
-        Members: []*User{&sune, &nobi},
     }
     db.Create(&nobiGroup)
     db.Create(&akichiGroup)
     db.Create(&giantsGroup)
+
+    // Append managers to groups
+    db.Model(&nobiGroup).Association("Managers").Append([]*User{&papa, &mama})
+    db.Model(&akichiGroup).Association("Managers").Append([]*User{&sune, &sizu})
+    db.Model(&giantsGroup).Association("Managers").Append([]*User{&gian})
+
+    // Append members to groups
+    db.Model(&nobiGroup).Association("Members").Append([]*User{&nobi, &dora})
+    db.Model(&akichiGroup).Association("Members").Append([]*User{&gian, &nobi, &dora})
+    db.Model(&giantsGroup).Association("Members").Append([]*User{&sune, &nobi})
 
     // Create sample direct messages
     dm1 := DirectMessage{FromUserID: nobi.Model.ID, ToUserID: dora.Model.ID, Content: "おやつ食べれるよ"}
@@ -110,4 +118,14 @@ func CreateSampleDataSet() {
     db.Create(health2)
     db.Create(health3)
     db.Create(health4)
+
+    // Create sample friend invitations
+    friendInvitation1 := &FriendInvitation{FromUserID: gian.Model.ID, ToUserID: dora.Model.ID, Status: UNREAD}
+    friendInvitation2 := &FriendInvitation{FromUserID: sune.Model.ID, ToUserID: dora.Model.ID, Status: UNREAD}
+    db.Create(friendInvitation1)
+    db.Create(friendInvitation2)
+
+    // Create sample group invitations
+    groupInvitation1 := &GroupInvitation{FromGroupID: giantsGroup.Model.ID, ToUserID: dora.Model.ID, Status: UNREAD}
+    db.Create(groupInvitation1)
 }

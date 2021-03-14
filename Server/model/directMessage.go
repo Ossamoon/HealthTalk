@@ -1,8 +1,10 @@
 package model
 
+
 import (
 	"gorm.io/gorm"
 )
+
 
 type DirectMessage struct {
     gorm.Model
@@ -11,9 +13,11 @@ type DirectMessage struct {
     Content    string `json:"content" gorm:"not null"`
 }
 
+
 func CreateDirectMessage(directMessage *DirectMessage) {
     db.Create(directMessage)
 }
+
 
 func FindDirectMessages(dm *DirectMessage) []DirectMessage {
     var directMessages []DirectMessage
